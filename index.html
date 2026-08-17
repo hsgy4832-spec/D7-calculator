@@ -3,172 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>حاسبة النقاط</title>
+<title>سجل نقاط الإدارة - D7</title>
 
 <style>
 :root{
   --yellow:#FACC15;
   --bg:#050505;
-  --panel-2:#111111;
+  --panel:#111111;
   --border:#FACC1538;
   --muted:#8a8a8a;
   --text:#f5f5f5;
 }
 
-*{box-sizing:border-box}
-
-html{
-  min-height:100%;
-  background:var(--bg)
+*{
+  box-sizing:border-box;
 }
 
 body{
-  font-family:Arial,system-ui,sans-serif;
   margin:0;
+  min-height:100vh;
+  padding:16px;
+  font-family:Arial,system-ui,sans-serif;
   background:
-    radial-gradient(circle at 50% 0%,#facc150b 0,transparent 34%),
+    radial-gradient(circle at 50% 0%,#facc150b,transparent 35%),
     var(--bg);
   color:var(--text);
-  min-height:100vh;
   display:flex;
   justify-content:center;
-  align-items:center;
-  padding:18px;
+  align-items:flex-start;
 }
 
 .card{
   width:100%;
   max-width:560px;
   background:linear-gradient(180deg,#101010,#090909);
-  padding:24px;
   border:1px solid var(--border);
   border-radius:20px;
-  box-shadow:0 18px 55px #000b,0 0 35px #facc1508;
-  position:relative;
+  padding:20px;
+  box-shadow:0 18px 55px #000b;
 }
-
-/* القائمة */
-
-.menu{
-  position:absolute;
-  top:18px;
-  left:18px;
-}
-
-.menu-btn{
-  width:42px;
-  height:42px;
-  padding:0;
-  margin:0;
-  border:1px solid #facc1538;
-  border-radius:10px;
-  background:#111;
-  color:var(--yellow);
-  font-size:25px;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.menu-btn:hover{
-  background:#181818;
-  box-shadow:0 0 15px #facc1525;
-}
-
-.menu-content{
-  display:none;
-  position:absolute;
-  top:48px;
-  left:0;
-  width:180px;
-  background:#111;
-  border:1px solid #facc1538;
-  border-radius:12px;
-  padding:7px;
-  box-shadow:0 15px 35px #000;
-  z-index:10;
-}
-
-.menu-content.show{
-  display:block;
-}
-
-.menu-content a{
-  display:block;
-  padding:12px;
-  border-radius:8px;
-  color:#fff;
-  text-decoration:none;
-  font-weight:700;
-}
-
-.menu-content a:hover{
-  background:#1b1b1b;
-  color:var(--yellow);
-}
-
-/* العنوان */
 
 .logo{
-  font-size:44px;
-  line-height:1;
-  font-weight:900;
-  letter-spacing:4px;
   text-align:center;
   color:var(--yellow);
-  text-shadow:0 0 10px #facc1538,0 0 24px #facc151c;
-  margin-bottom:8px;
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:4px;
 }
 
 h1{
   text-align:center;
-  margin:0;
-  font-size:24px
+  margin:8px 0;
+  font-size:23px;
 }
 
 .sub{
   text-align:center;
   color:var(--muted);
-  margin:8px 0 22px;
-  font-size:14px
+  font-size:13px;
+  margin-bottom:22px;
 }
 
-/* الخانات */
+/* خانة الإضافة */
 
-.row{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin:12px 0;
-  padding:13px;
-  background:var(--panel-2);
-  border:1px solid #ffffff0d;
-  border-radius:13px;
-}
-
-label{
-  flex:1;
-  font-weight:700
-}
-
-small{
-  display:block;
-  color:var(--muted);
-  margin-top:5px;
-  font-weight:400;
-  font-size:12px
+.add{
+  display:grid;
+  grid-template-columns:1fr 110px 75px;
+  gap:8px;
+  width:100%;
+  margin-bottom:20px;
 }
 
 input{
-  width:118px;
-  padding:12px 10px;
+  width:100%;
+  min-width:0;
+  padding:12px 8px;
   border-radius:10px;
   border:1px solid #facc1530;
-  outline:none;
   background:#070707;
-  color:#fff;
-  font-size:18px;
+  color:white;
+  outline:none;
+  font-size:15px;
   text-align:center;
-  font-weight:700;
 }
 
 input:focus{
@@ -176,95 +92,110 @@ input:focus{
   box-shadow:0 0 0 3px #facc1510;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button{
-  margin:0
-}
-
-/* المجموع */
-
-.total{
-  text-align:center;
-  background:linear-gradient(180deg,#121212,#0b0b0b);
-  border:1px solid #facc1555;
-  border-radius:16px;
-  padding:20px;
-  margin-top:20px;
-}
-
-.total span{
-  display:block;
-  color:var(--yellow);
-  font-weight:800;
-  font-size:15px
-}
-
-.total b{
-  display:block;
-  color:#fff;
-  font-size:52px;
-  line-height:1;
-  margin-top:9px;
-}
-
-.details{
-  margin-top:13px;
-  padding:12px 14px;
-  border-radius:11px;
-  background:#090909;
-  border:1px solid #ffffff08;
-  line-height:1.9;
-  color:#bdbdbd;
-  font-size:13px;
-}
-
-/* الأزرار */
-
-button.reset{
+.add button{
   width:100%;
-  padding:13px;
-  margin-top:14px;
+  padding:12px 5px;
   border:0;
   border-radius:10px;
   background:var(--yellow);
   color:#050505;
-  font-size:16px;
   font-weight:900;
   cursor:pointer;
 }
 
-@media(max-width:520px){
+/* الإداري */
 
-  body{
-    padding:12px;
-    align-items:flex-start;
-    padding-top:20px
-  }
+.member{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:14px;
+  margin:10px 0;
+  background:var(--panel);
+  border:1px solid #ffffff0d;
+  border-radius:13px;
+}
+
+.name{
+  font-weight:800;
+  font-size:16px;
+}
+
+.points{
+  color:var(--yellow);
+  font-weight:900;
+  margin-top:4px;
+}
+
+.actions{
+  display:flex;
+  gap:6px;
+  flex-shrink:0;
+}
+
+.actions button{
+  border:0;
+  border-radius:8px;
+  padding:8px 10px;
+  background:var(--yellow);
+  color:#050505;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.actions .delete{
+  background:#ff4444;
+  color:white;
+}
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
+}
+
+.back{
+  display:block;
+  width:100%;
+  margin-top:18px;
+  padding:12px;
+  text-align:center;
+  text-decoration:none;
+  border:1px solid #facc1538;
+  border-radius:10px;
+  color:var(--yellow);
+  background:#111;
+  font-weight:900;
+}
+
+@media(max-width:430px){
 
   .card{
-    padding:18px;
-    border-radius:17px
+    padding:16px;
   }
 
-  .logo{
-    font-size:40px
-  }
-
-  h1{
-    font-size:22px
-  }
-
-  .row{
-    padding:11px
+  .add{
+    grid-template-columns:1fr 90px 65px;
+    gap:6px;
   }
 
   input{
-    width:100px;
-    font-size:17px
+    font-size:14px;
   }
 
-  .total b{
-    font-size:48px
+  .add button{
+    font-size:13px;
+  }
+
+  .member{
+    padding:12px;
+  }
+
+  .actions button{
+    padding:7px 8px;
+    font-size:12px;
   }
 }
 </style>
@@ -274,153 +205,173 @@ button.reset{
 
 <div class="card">
 
-<!-- القائمة -->
-<div class="menu">
-
-  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
-
-  <div class="menu-content" id="menuContent">
-
-    <a href="management.html">
-      📊 نقاط الإدارة
-    </a>
-
-  </div>
-
-</div>
-
 <div class="logo">D7</div>
 
-<h1>حاسبة النقاط</h1>
+<h1>سجل نقاط الإدارة</h1>
 
-<p class="sub">حاسبة نقاط الإدارة الأسبوعية</p>
+<p class="sub">إدارة نقاط الإداريين</p>
 
-<div class="row">
-<label>
-التكتات
-<small>4 تكتات = 1 نقطة</small>
-</label>
-<input id="tickets" type="number" min="0">
+<div class="add">
+
+<input
+  id="name"
+  type="text"
+  placeholder="اسم الإداري"
+>
+
+<input
+  id="points"
+  type="number"
+  min="0"
+  placeholder="النقاط"
+>
+
+<button onclick="addMember()">إضافة</button>
+
 </div>
 
-<div class="row">
-<label>
-التحذيرات
-<small>3 تحذيرات = 1 نقطة</small>
-</label>
-<input id="warnings" type="number" min="0">
-</div>
+<div id="list"></div>
 
-<div class="row">
-<label>
-السجن
-<small>4 سجن = 1 نقطة</small>
-</label>
-<input id="jail" type="number" min="0">
-</div>
-
-<div class="row">
-<label>
-XP
-<small>1750 اكسبي = 1 نقطة</small>
-</label>
-<input id="xp" type="number" min="0">
-</div>
-
-<div class="row">
-<label>
-تكتات النصب
-<small>2 تكتات = 1 نقطة</small>
-</label>
-<input id="scam" type="number" min="0">
-</div>
-
-<div class="row">
-<label>
-الفعاليات
-<small>كل فعالية = 10 نقاط</small>
-</label>
-<input id="events" type="number" min="0">
-</div>
-
-<div class="total">
-<span>مجموع النقاط</span>
-<b id="total">0</b>
-</div>
-
-<div class="details" id="details"></div>
-
-<button class="reset" onclick="resetAll()">تصفير</button>
+<a href="index.html" class="back">
+← العودة للحاسبة
+</a>
 
 </div>
 
 <script>
 
-function toggleMenu(){
+let members =
+JSON.parse(localStorage.getItem("d7_members")) || [];
 
-  document
-    .getElementById("menuContent")
-    .classList.toggle("show");
+function save(){
 
-}
-
-document.addEventListener("click",function(e){
-
-  const menu=document.querySelector(".menu");
-
-  if(!menu.contains(e.target)){
-    document
-      .getElementById("menuContent")
-      .classList.remove("show");
-  }
-
-});
-
-function calc(){
-
-  const n=id=>Math.max(
-    0,
-    Number(document.getElementById(id).value)||0
+  localStorage.setItem(
+    "d7_members",
+    JSON.stringify(members)
   );
 
-  const t=Math.floor(n("tickets")/4);
-  const w=Math.floor(n("warnings")/3);
-  const j=Math.floor(n("jail")/4);
-  const x=Math.floor(n("xp")/1750);
-  const s=Math.floor(n("scam")/2);
-  const e=n("events")*10;
-
-  const total=t+w+j+x+s+e;
-
-  document.getElementById("total").textContent=total;
-
-  document.getElementById("details").innerHTML=
-    "التكتات: "+t+" نقطة<br>"+
-    "التحذيرات: "+w+" نقطة<br>"+
-    "السجن: "+j+" نقطة<br>"+
-    "XP: "+x+" نقطة<br>"+
-    "تكتات النصب: "+s+" نقطة<br>"+
-    "الفعاليات: "+e+" نقطة";
 }
 
-document.querySelectorAll("input").forEach(input=>{
+function render(){
 
-  input.addEventListener("input",calc);
-  input.addEventListener("change",calc);
+  const list =
+    document.getElementById("list");
 
-});
+  if(members.length === 0){
 
-function resetAll(){
+    list.innerHTML =
+      '<div class="empty">لا يوجد إداريين حتى الآن</div>';
 
-  document
-    .querySelectorAll("input")
-    .forEach(input=>input.value="");
+    return;
+  }
 
-  calc();
+  members.sort(
+    (a,b)=>b.points-a.points
+  );
+
+  list.innerHTML =
+    members.map((m,i)=>`
+
+      <div class="member">
+
+        <div>
+
+          <div class="name">
+            ${i+1}. ${m.name}
+          </div>
+
+          <div class="points">
+            ${m.points} نقطة
+          </div>
+
+        </div>
+
+        <div class="actions">
+
+          <button onclick="addPoints(${i})">
+            + نقاط
+          </button>
+
+          <button
+            class="delete"
+            onclick="removeMember(${i})"
+          >
+            حذف
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
 
 }
 
-calc();
+function addMember(){
+
+  const name =
+    document.getElementById("name")
+    .value.trim();
+
+  const points =
+    Number(
+      document.getElementById("points").value
+    ) || 0;
+
+  if(!name){
+
+    alert("اكتب اسم الإداري");
+
+    return;
+  }
+
+  members.push({
+    name:name,
+    points:points
+  });
+
+  save();
+  render();
+
+  document.getElementById("name").value="";
+  document.getElementById("points").value="";
+}
+
+function addPoints(index){
+
+  const amount =
+    prompt("كم نقطة تريد إضافتها؟");
+
+  if(amount === null) return;
+
+  const value = Number(amount);
+
+  if(!Number.isFinite(value) || value < 0){
+
+    alert("أدخل رقم صحيح");
+
+    return;
+  }
+
+  members[index].points += value;
+
+  save();
+  render();
+}
+
+function removeMember(index){
+
+  if(confirm("هل تريد حذف هذا الإداري؟")){
+
+    members.splice(index,1);
+
+    save();
+    render();
+  }
+
+}
+
+render();
 
 </script>
 
