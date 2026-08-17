@@ -376,4 +376,392 @@ render();
 </script>
 
 </body>
-</html>
+</<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حاسبة النقاط - D7</title>
+
+<style>
+:root{
+  --yellow:#FACC15;
+  --bg:#050505;
+  --panel:#111111;
+  --border:#FACC1538;
+  --muted:#8a8a8a;
+  --text:#f5f5f5;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,system-ui,sans-serif;
+  margin:0;
+  min-height:100vh;
+  padding:18px;
+  background:
+    radial-gradient(circle at 50% 0%,#facc150b 0,transparent 34%),
+    var(--bg);
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.card{
+  width:100%;
+  max-width:560px;
+  background:linear-gradient(180deg,#101010,#090909);
+  padding:24px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:0 18px 55px #000b;
+}
+
+.top{
+  position:relative;
+}
+
+.menu{
+  position:absolute;
+  left:0;
+  top:0;
+}
+
+.menu button{
+  width:42px;
+  height:42px;
+  border:1px solid #facc1538;
+  border-radius:10px;
+  background:#111;
+  color:var(--yellow);
+  font-size:24px;
+  cursor:pointer;
+}
+
+.menu-content{
+  display:none;
+  position:absolute;
+  left:0;
+  top:48px;
+  width:180px;
+  background:#111;
+  border:1px solid #facc1538;
+  border-radius:12px;
+  padding:7px;
+  z-index:10;
+  box-shadow:0 12px 30px #000;
+}
+
+.menu-content a{
+  display:block;
+  padding:12px;
+  border-radius:8px;
+  color:white;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.menu-content a:hover{
+  background:#1b1b1b;
+  color:var(--yellow);
+}
+
+.logo{
+  font-size:44px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:4px;
+  text-align:center;
+  color:var(--yellow);
+  margin-bottom:8px;
+}
+
+h1{
+  text-align:center;
+  margin:0;
+  font-size:24px;
+}
+
+.sub{
+  text-align:center;
+  color:var(--muted);
+  margin:8px 0 22px;
+  font-size:14px;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin:12px 0;
+  padding:13px;
+  background:var(--panel);
+  border:1px solid #ffffff0d;
+  border-radius:13px;
+}
+
+label{
+  flex:1;
+  font-weight:700;
+}
+
+small{
+  display:block;
+  color:var(--muted);
+  margin-top:5px;
+  font-weight:400;
+  font-size:12px;
+}
+
+input{
+  width:118px;
+  padding:12px 10px;
+  border-radius:10px;
+  border:1px solid #facc1530;
+  outline:none;
+  background:#070707;
+  color:#fff;
+  font-size:18px;
+  text-align:center;
+  font-weight:700;
+}
+
+input:focus{
+  border-color:var(--yellow);
+}
+
+.total{
+  text-align:center;
+  background:linear-gradient(180deg,#121212,#0b0b0b);
+  border:1px solid #facc1555;
+  border-radius:16px;
+  padding:20px;
+  margin-top:20px;
+}
+
+.total span{
+  display:block;
+  color:var(--yellow);
+  font-weight:800;
+}
+
+.total b{
+  display:block;
+  color:#fff;
+  font-size:52px;
+  margin-top:9px;
+}
+
+.details{
+  margin-top:13px;
+  padding:12px 14px;
+  border-radius:11px;
+  background:#090909;
+  border:1px solid #ffffff08;
+  line-height:1.9;
+  color:#bdbdbd;
+  font-size:13px;
+}
+
+.reset{
+  width:100%;
+  padding:13px;
+  margin-top:14px;
+  border:0;
+  border-radius:10px;
+  background:var(--yellow);
+  color:#050505;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+@media(max-width:520px){
+  body{
+    padding:12px;
+    align-items:flex-start;
+    padding-top:20px;
+  }
+
+  .card{
+    padding:18px;
+  }
+
+  input{
+    width:100px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="top">
+
+<div class="menu">
+
+<button onclick="toggleMenu()">⋮</button>
+
+<div class="menu-content" id="menuContent">
+
+<a href="./management.html">
+📊 نقاط الإدارة
+</a>
+
+</div>
+
+</div>
+
+<div class="logo">D7</div>
+
+<h1>حاسبة النقاط</h1>
+
+<p class="sub">
+حاسبة نقاط الإدارة الأسبوعية
+</p>
+
+</div>
+
+<div class="row">
+<label>
+التكتات
+<small>4 تكتات = 1 نقطة</small>
+</label>
+<input id="tickets" type="number" min="0">
+</div>
+
+<div class="row">
+<label>
+التحذيرات
+<small>3 تحذيرات = 1 نقطة</small>
+</label>
+<input id="warnings" type="number" min="0">
+</div>
+
+<div class="row">
+<label>
+السجن
+<small>4 سجن = 1 نقطة</small>
+</label>
+<input id="jail" type="number" min="0">
+</div>
+
+<div class="row">
+<label>
+XP
+<small>1750 اكسبي = 1 نقطة</small>
+</label>
+<input id="xp" type="number" min="0">
+</div>
+
+<div class="row">
+<label>
+تكتات النصب
+<small>2 تكتات = 1 نقطة</small>
+</label>
+<input id="scam" type="number" min="0">
+</div>
+
+<div class="row">
+<label>
+الفعاليات
+<small>كل فعالية = 10 نقاط</small>
+</label>
+<input id="events" type="number" min="0">
+</div>
+
+<div class="total">
+<span>مجموع النقاط</span>
+<b id="total">0</b>
+</div>
+
+<div class="details" id="details"></div>
+
+<button class="reset" onclick="resetAll()">
+تصفير
+</button>
+
+</div>
+
+<script>
+
+function toggleMenu(){
+
+  const menu =
+    document.getElementById("menuContent");
+
+  if(menu.style.display === "block"){
+    menu.style.display = "none";
+  }else{
+    menu.style.display = "block";
+  }
+
+}
+
+function calc(){
+
+  const n = id =>
+    Math.max(
+      0,
+      Number(
+        document.getElementById(id).value
+      ) || 0
+    );
+
+  const t = Math.floor(n("tickets") / 4);
+  const w = Math.floor(n("warnings") / 3);
+  const j = Math.floor(n("jail") / 4);
+  const x = Math.floor(n("xp") / 1750);
+  const s = Math.floor(n("scam") / 2);
+  const e = n("events") * 10;
+
+  const total =
+    t + w + j + x + s + e;
+
+  document.getElementById("total")
+    .textContent = total;
+
+  document.getElementById("details")
+    .innerHTML =
+      "التكتات: " + t + " نقطة<br>" +
+      "التحذيرات: " + w + " نقطة<br>" +
+      "السجن: " + j + " نقطة<br>" +
+      "XP: " + x + " نقطة<br>" +
+      "تكتات النصب: " + s + " نقطة<br>" +
+      "الفعاليات: " + e + " نقطة";
+}
+
+document
+  .querySelectorAll("input")
+  .forEach(input => {
+
+    input.addEventListener(
+      "input",
+      calc
+    );
+
+  });
+
+function resetAll(){
+
+  document
+    .querySelectorAll("input")
+    .forEach(input => {
+      input.value = "";
+    });
+
+  calc();
+}
+
+calc();
+
+</script>
+
+</body>
+  </html>>
