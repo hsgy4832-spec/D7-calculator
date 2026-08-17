@@ -15,27 +15,32 @@
   --text:#f5f5f5;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   min-height:100vh;
-  padding:20px;
+  padding:16px;
   font-family:Arial,system-ui,sans-serif;
-  background:#050505;
+  background:
+    radial-gradient(circle at 50% 0%,#facc150b,transparent 35%),
+    var(--bg);
   color:var(--text);
   display:flex;
   justify-content:center;
+  align-items:flex-start;
 }
 
 .card{
   width:100%;
   max-width:560px;
-  background:#0d0d0d;
+  background:linear-gradient(180deg,#101010,#090909);
   border:1px solid var(--border);
   border-radius:20px;
-  padding:24px;
-  box-shadow:0 18px 55px #000;
+  padding:20px;
+  box-shadow:0 18px 55px #000b;
 }
 
 .logo{
@@ -49,43 +54,59 @@ body{
 h1{
   text-align:center;
   margin:8px 0;
+  font-size:23px;
 }
 
 .sub{
   text-align:center;
   color:var(--muted);
-  font-size:14px;
+  font-size:13px;
   margin-bottom:22px;
 }
 
+/* إضافة إداري */
+
 .add{
-  display:flex;
-  gap:10px;
+  display:grid;
+  grid-template-columns:1fr 110px 75px;
+  gap:8px;
+  width:100%;
   margin-bottom:20px;
 }
 
 input{
-  flex:1;
-  padding:13px;
+  width:100%;
+  min-width:0;
+  padding:12px 8px;
   border-radius:10px;
   border:1px solid #facc1530;
   background:#070707;
   color:white;
   outline:none;
-  font-size:16px;
+  font-size:15px;
+  text-align:center;
 }
 
-button{
+input:focus{
+  border-color:var(--yellow);
+  box-shadow:0 0 0 3px #facc1510;
+}
+
+.add button{
+  width:100%;
+  padding:12px 5px;
   border:0;
   border-radius:10px;
-  padding:12px 16px;
   background:var(--yellow);
   color:#050505;
   font-weight:900;
   cursor:pointer;
 }
 
+/* الإداري */
+
 .member{
+  width:100%;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -99,24 +120,32 @@ button{
 
 .name{
   font-weight:800;
+  font-size:16px;
 }
 
 .points{
   color:var(--yellow);
   font-weight:900;
+  margin-top:4px;
 }
 
 .actions{
   display:flex;
   gap:6px;
+  flex-shrink:0;
 }
 
 .actions button{
-  padding:7px 10px;
-  font-size:12px;
+  border:0;
+  border-radius:8px;
+  padding:8px 10px;
+  background:var(--yellow);
+  color:#050505;
+  font-weight:900;
+  cursor:pointer;
 }
 
-.delete{
+.actions .delete{
   background:#ff4444;
   color:white;
 }
@@ -125,6 +154,55 @@ button{
   text-align:center;
   color:var(--muted);
   padding:25px;
+}
+
+/* العودة للحاسبة */
+
+.back{
+  display:block;
+  width:100%;
+  margin-top:18px;
+  padding:12px;
+  text-align:center;
+  text-decoration:none;
+  border:1px solid #facc1538;
+  border-radius:10px;
+  color:var(--yellow);
+  background:#111;
+  font-weight:900;
+}
+
+.back:hover{
+  background:#181818;
+}
+
+@media(max-width:430px){
+
+  .card{
+    padding:16px;
+  }
+
+  .add{
+    grid-template-columns:1fr 90px 65px;
+    gap:6px;
+  }
+
+  input{
+    font-size:14px;
+  }
+
+  .add button{
+    font-size:13px;
+  }
+
+  .member{
+    padding:12px;
+  }
+
+  .actions button{
+    padding:7px 8px;
+    font-size:12px;
+  }
 }
 </style>
 </head>
@@ -137,61 +215,122 @@ button{
 
 <h1>سجل نقاط الإدارة</h1>
 
-<p class="sub">النقاط محفوظة على هذا الجهاز</p>
+<p class="sub">إدارة نقاط الإداريين</p>
 
 <div class="add">
-<input id="name" type="text" placeholder="اسم الإداري">
-<input id="points" type="number" min="0" placeholder="النقاط">
+
+<input
+  id="name"
+  type="text"
+  placeholder="اسم الإداري"
+>
+
+<input
+  id="points"
+  type="number"
+  min="0"
+  placeholder="النقاط"
+>
+
 <button onclick="addMember()">إضافة</button>
+
 </div>
 
 <div id="list"></div>
+
+<a
+  href="https://hsgy4832-spec.github.io/D7-calculator/"
+  class="back"
+>
+← العودة للحاسبة
+</a>
 
 </div>
 
 <script>
 
-let members = JSON.parse(localStorage.getItem("d7_members")) || [];
+let members =
+JSON.parse(localStorage.getItem("d7_members")) || [];
 
 function save(){
-  localStorage.setItem("d7_members", JSON.stringify(members));
+
+  localStorage.setItem(
+    "d7_members",
+    JSON.stringify(members)
+  );
+
 }
 
 function render(){
 
-  const list = document.getElementById("list");
+  const list =
+    document.getElementById("list");
 
   if(members.length === 0){
-    list.innerHTML = '<div class="empty">لا يوجد إداريين حتى الآن</div>';
+
+    list.innerHTML =
+      '<div class="empty">لا يوجد إداريين حتى الآن</div>';
+
     return;
   }
 
-  members.sort((a,b)=>b.points-a.points);
+  members.sort(
+    (a,b)=>b.points-a.points
+  );
 
-  list.innerHTML = members.map((m,i)=>`
-    <div class="member">
+  list.innerHTML =
+    members.map((m,i)=>`
 
-      <div>
-        <div class="name">${i+1}. ${m.name}</div>
-        <div class="points">${m.points} نقطة</div>
+      <div class="member">
+
+        <div>
+
+          <div class="name">
+            ${i+1}. ${m.name}
+          </div>
+
+          <div class="points">
+            ${m.points} نقطة
+          </div>
+
+        </div>
+
+        <div class="actions">
+
+          <button onclick="addPoints(${i})">
+            + نقاط
+          </button>
+
+          <button
+            class="delete"
+            onclick="removeMember(${i})"
+          >
+            حذف
+          </button>
+
+        </div>
+
       </div>
 
-      <div class="actions">
-        <button onclick="addPoints(${i})">+ نقاط</button>
-        <button class="delete" onclick="removeMember(${i})">حذف</button>
-      </div>
+    `).join("");
 
-    </div>
-  `).join("");
 }
 
 function addMember(){
 
-  const name = document.getElementById("name").value.trim();
-  const points = Number(document.getElementById("points").value) || 0;
+  const name =
+    document.getElementById("name")
+    .value.trim();
+
+  const points =
+    Number(
+      document.getElementById("points").value
+    ) || 0;
 
   if(!name){
+
     alert("اكتب اسم الإداري");
+
     return;
   }
 
@@ -209,14 +348,17 @@ function addMember(){
 
 function addPoints(index){
 
-  const amount = prompt("كم نقطة تريد إضافتها؟");
+  const amount =
+    prompt("كم نقطة تريد إضافتها؟");
 
   if(amount === null) return;
 
   const value = Number(amount);
 
   if(!Number.isFinite(value) || value < 0){
+
     alert("أدخل رقم صحيح");
+
     return;
   }
 
@@ -229,7 +371,9 @@ function addPoints(index){
 function removeMember(index){
 
   if(confirm("هل تريد حذف هذا الإداري؟")){
+
     members.splice(index,1);
+
     save();
     render();
   }
