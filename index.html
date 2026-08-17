@@ -8,9 +8,7 @@
 <style>
 :root{
   --yellow:#FACC15;
-  --yellow-soft:#FACC1530;
   --bg:#050505;
-  --panel:#0d0d0d;
   --panel-2:#111111;
   --border:#FACC1538;
   --muted:#8a8a8a;
@@ -36,7 +34,6 @@ body{
   justify-content:center;
   align-items:center;
   padding:18px;
-  animation:pageIn .45s ease-out both;
 }
 
 .card{
@@ -47,7 +44,69 @@ body{
   border:1px solid var(--border);
   border-radius:20px;
   box-shadow:0 18px 55px #000b,0 0 35px #facc1508;
+  position:relative;
 }
+
+/* القائمة */
+
+.menu{
+  position:absolute;
+  top:18px;
+  left:18px;
+}
+
+.menu-btn{
+  width:42px;
+  height:42px;
+  padding:0;
+  margin:0;
+  border:1px solid #facc1538;
+  border-radius:10px;
+  background:#111;
+  color:var(--yellow);
+  font-size:25px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.menu-btn:hover{
+  background:#181818;
+  box-shadow:0 0 15px #facc1525;
+}
+
+.menu-content{
+  display:none;
+  position:absolute;
+  top:48px;
+  left:0;
+  width:180px;
+  background:#111;
+  border:1px solid #facc1538;
+  border-radius:12px;
+  padding:7px;
+  box-shadow:0 15px 35px #000;
+  z-index:10;
+}
+
+.menu-content.show{
+  display:block;
+}
+
+.menu-content a{
+  display:block;
+  padding:12px;
+  border-radius:8px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.menu-content a:hover{
+  background:#1b1b1b;
+  color:var(--yellow);
+}
+
+/* العنوان */
 
 .logo{
   font-size:44px;
@@ -73,6 +132,8 @@ h1{
   font-size:14px
 }
 
+/* الخانات */
+
 .row{
   display:flex;
   align-items:center;
@@ -82,12 +143,6 @@ h1{
   background:var(--panel-2);
   border:1px solid #ffffff0d;
   border-radius:13px;
-  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
-}
-
-.row:hover{
-  border-color:#facc1526;
-  box-shadow:0 0 16px #facc1508;
 }
 
 label{
@@ -114,8 +169,11 @@ input{
   font-size:18px;
   text-align:center;
   font-weight:700;
-  transition:border-color .18s ease,box-shadow .18s ease,background .18s ease;
-  appearance:textfield;
+}
+
+input:focus{
+  border-color:var(--yellow);
+  box-shadow:0 0 0 3px #facc1510;
 }
 
 input::-webkit-outer-spin-button,
@@ -123,11 +181,7 @@ input::-webkit-inner-spin-button{
   margin:0
 }
 
-input:focus{
-  border-color:var(--yellow);
-  background:#0a0a0a;
-  box-shadow:0 0 0 3px #facc1510,0 0 18px #facc1520;
-}
+/* المجموع */
 
 .total{
   text-align:center;
@@ -136,7 +190,6 @@ input:focus{
   border-radius:16px;
   padding:20px;
   margin-top:20px;
-  box-shadow:inset 0 0 24px #facc1508;
 }
 
 .total span{
@@ -152,7 +205,6 @@ input:focus{
   font-size:52px;
   line-height:1;
   margin-top:9px;
-  text-shadow:0 0 18px #facc1525;
 }
 
 .details{
@@ -166,7 +218,9 @@ input:focus{
   font-size:13px;
 }
 
-button{
+/* الأزرار */
+
+button.reset{
   width:100%;
   padding:13px;
   margin-top:14px;
@@ -177,55 +231,6 @@ button{
   font-size:16px;
   font-weight:900;
   cursor:pointer;
-  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
-}
-
-button:hover{
-  box-shadow:0 0 20px #facc1535;
-  filter:brightness(1.04)
-}
-
-button:active{
-  transform:scale(.985)
-}
-
-/* زر سجل الإدارة */
-
-.manageBtn{
-  display:block;
-  width:100%;
-  padding:13px;
-  margin-top:10px;
-  border:1px solid #facc1555;
-  border-radius:10px;
-  background:#111;
-  color:var(--yellow);
-  font-size:16px;
-  font-weight:900;
-  text-align:center;
-  text-decoration:none;
-  cursor:pointer;
-  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
-}
-
-.manageBtn:hover{
-  background:#171717;
-  box-shadow:0 0 20px #facc1525;
-}
-
-.manageBtn:active{
-  transform:scale(.985)
-}
-
-@keyframes pageIn{
-  from{
-    opacity:0;
-    transform:translateY(10px)
-  }
-  to{
-    opacity:1;
-    transform:translateY(0)
-  }
 }
 
 @media(max-width:520px){
@@ -269,6 +274,21 @@ button:active{
 
 <div class="card">
 
+<!-- القائمة -->
+<div class="menu">
+
+  <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+
+  <div class="menu-content" id="menuContent">
+
+    <a href="management.html">
+      📊 نقاط الإدارة
+    </a>
+
+  </div>
+
+</div>
+
 <div class="logo">D7</div>
 
 <h1>حاسبة النقاط</h1>
@@ -280,7 +300,7 @@ button:active{
 التكتات
 <small>4 تكتات = 1 نقطة</small>
 </label>
-<input id="tickets" type="number" min="0" value="">
+<input id="tickets" type="number" min="0">
 </div>
 
 <div class="row">
@@ -288,7 +308,7 @@ button:active{
 التحذيرات
 <small>3 تحذيرات = 1 نقطة</small>
 </label>
-<input id="warnings" type="number" min="0" value="">
+<input id="warnings" type="number" min="0">
 </div>
 
 <div class="row">
@@ -296,7 +316,7 @@ button:active{
 السجن
 <small>4 سجن = 1 نقطة</small>
 </label>
-<input id="jail" type="number" min="0" value="">
+<input id="jail" type="number" min="0">
 </div>
 
 <div class="row">
@@ -304,7 +324,7 @@ button:active{
 XP
 <small>1750 اكسبي = 1 نقطة</small>
 </label>
-<input id="xp" type="number" min="0" value="">
+<input id="xp" type="number" min="0">
 </div>
 
 <div class="row">
@@ -312,7 +332,7 @@ XP
 تكتات النصب
 <small>2 تكتات = 1 نقطة</small>
 </label>
-<input id="scam" type="number" min="0" value="">
+<input id="scam" type="number" min="0">
 </div>
 
 <div class="row">
@@ -320,7 +340,7 @@ XP
 الفعاليات
 <small>كل فعالية = 10 نقاط</small>
 </label>
-<input id="events" type="number" min="0" value="">
+<input id="events" type="number" min="0">
 </div>
 
 <div class="total">
@@ -330,15 +350,31 @@ XP
 
 <div class="details" id="details"></div>
 
-<button onclick="resetAll()">تصفير</button>
-
-<a href="management.html" class="manageBtn">
-📊 سجل نقاط الإدارة
-</a>
+<button class="reset" onclick="resetAll()">تصفير</button>
 
 </div>
 
 <script>
+
+function toggleMenu(){
+
+  document
+    .getElementById("menuContent")
+    .classList.toggle("show");
+
+}
+
+document.addEventListener("click",function(e){
+
+  const menu=document.querySelector(".menu");
+
+  if(!menu.contains(e.target)){
+    document
+      .getElementById("menuContent")
+      .classList.remove("show");
+  }
+
+});
 
 function calc(){
 
@@ -347,39 +383,41 @@ function calc(){
     Number(document.getElementById(id).value)||0
   );
 
-  const t=Math.floor(n('tickets')/4);
-  const w=Math.floor(n('warnings')/3);
-  const j=Math.floor(n('jail')/4);
-  const x=Math.floor(n('xp')/1750);
-  const s=Math.floor(n('scam')/2);
-  const e=n('events')*10;
+  const t=Math.floor(n("tickets")/4);
+  const w=Math.floor(n("warnings")/3);
+  const j=Math.floor(n("jail")/4);
+  const x=Math.floor(n("xp")/1750);
+  const s=Math.floor(n("scam")/2);
+  const e=n("events")*10;
 
-  document.getElementById('total').textContent=
-    t+w+j+x+s+e;
+  const total=t+w+j+x+s+e;
 
-  document.getElementById('details').innerHTML=
-    'التكتات: '+t+' نقطة<br>'+
-    'التحذيرات: '+w+' نقطة<br>'+
-    'السجن: '+j+' نقطة<br>'+
-    'XP: '+x+' نقطة<br>'+
-    'تكتات النصب: '+s+' نقطة<br>'+
-    'الفعاليات: '+e+' نقطة';
+  document.getElementById("total").textContent=total;
+
+  document.getElementById("details").innerHTML=
+    "التكتات: "+t+" نقطة<br>"+
+    "التحذيرات: "+w+" نقطة<br>"+
+    "السجن: "+j+" نقطة<br>"+
+    "XP: "+x+" نقطة<br>"+
+    "تكتات النصب: "+s+" نقطة<br>"+
+    "الفعاليات: "+e+" نقطة";
 }
 
-document.querySelectorAll('input').forEach(e=>{
+document.querySelectorAll("input").forEach(input=>{
 
-  e.addEventListener('input',calc);
-  e.addEventListener('change',calc);
+  input.addEventListener("input",calc);
+  input.addEventListener("change",calc);
 
 });
 
 function resetAll(){
 
   document
-    .querySelectorAll('input')
-    .forEach(e=>e.value='');
+    .querySelectorAll("input")
+    .forEach(input=>input.value="");
 
   calc();
+
 }
 
 calc();
