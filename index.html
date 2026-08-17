@@ -3,317 +3,474 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>حاسبة النقاط - D7</title>
+<title>D7 — حاسبة النقاط</title>
 
 <style>
 :root{
-  --yellow:#FACC15;
-  --bg:#050505;
-  --panel:#111111;
-  --border:#FACC1538;
-  --muted:#8a8a8a;
-  --text:#f5f5f5;
+  --gold:#FACC15;
+  --gold-soft:#FACC1530;
+  --black:#050505;
+  --surface:#0b0b0b;
+  --line:#ffffff12;
+  --muted:#777;
+  --white:#f4f4f4;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
-  font-family:Arial,system-ui,sans-serif;
   margin:0;
   min-height:100vh;
-  padding:18px;
-  background:
-    radial-gradient(circle at 50% 0%,#facc150b 0,transparent 34%),
-    var(--bg);
-  color:var(--text);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  padding:25px 16px;
+  background:var(--black);
+  color:var(--white);
+  font-family:Arial,system-ui,sans-serif;
 }
 
-.card{
+/* الصفحة */
+
+.wrapper{
   width:100%;
-  max-width:560px;
-  background:linear-gradient(180deg,#101010,#090909);
-  padding:24px;
-  border:1px solid var(--border);
-  border-radius:20px;
-  box-shadow:0 18px 55px #000b;
+  max-width:620px;
+  margin:auto;
 }
 
-.top{
-  position:relative;
+/* الهيدر */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-bottom:22px;
+  border-bottom:1px solid var(--line);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand-mark{
+  color:var(--gold);
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:3px;
+}
+
+.brand-text{
+  color:#777;
+  font-size:11px;
+  letter-spacing:2px;
 }
 
 .menu{
-  position:absolute;
-  left:0;
-  top:0;
-  z-index:20;
+  position:relative;
 }
 
-.menu button{
-  width:42px;
-  height:42px;
-  border:1px solid #facc1538;
-  border-radius:10px;
-  background:#111;
-  color:var(--yellow);
-  font-size:24px;
+.menu-button{
+  width:38px;
+  height:38px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--gold);
+  border-radius:50%;
+  font-size:22px;
   cursor:pointer;
+}
+
+.menu-button:hover{
+  border-color:var(--gold-soft);
+  background:#ffffff05;
 }
 
 .menu-content{
   display:none;
   position:absolute;
-  left:0;
   top:48px;
-  width:180px;
-  background:#111;
-  border:1px solid #facc1538;
+  right:0;
+  width:190px;
+  padding:6px;
+  background:#0b0b0b;
+  border:1px solid var(--gold-soft);
   border-radius:12px;
-  padding:7px;
-  z-index:30;
-  box-shadow:0 12px 30px #000;
+  box-shadow:0 15px 40px #000;
+  z-index:50;
 }
 
 .menu-content a{
   display:block;
-  padding:12px;
-  border-radius:8px;
-  color:white;
+  padding:12px 14px;
+  color:#ddd;
   text-decoration:none;
-  font-weight:700;
+  font-size:14px;
+  border-radius:8px;
 }
 
 .menu-content a:hover{
-  background:#1b1b1b;
-  color:var(--yellow);
+  background:#ffffff08;
+  color:var(--gold);
 }
 
-.logo{
-  font-size:44px;
-  line-height:1;
-  font-weight:900;
-  letter-spacing:4px;
-  text-align:center;
-  color:var(--yellow);
-  margin-bottom:8px;
+/* العنوان */
+
+.hero{
+  padding:42px 0 32px;
+}
+
+.eyebrow{
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:3px;
+  margin-bottom:10px;
 }
 
 h1{
-  text-align:center;
   margin:0;
-  font-size:24px;
+  font-size:32px;
+  font-weight:800;
 }
 
-.sub{
-  text-align:center;
+.subtitle{
+  margin:10px 0 0;
   color:var(--muted);
-  margin:8px 0 22px;
-  font-size:14px;
+  font-size:13px;
+}
+
+/* النقاط */
+
+.total{
+  padding:30px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.total-label{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.total-number{
+  margin-top:5px;
+  font-size:72px;
+  line-height:1;
+  font-weight:900;
+  color:var(--gold);
+  letter-spacing:-3px;
+}
+
+/* الخانات */
+
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:28px 0 8px;
+}
+
+.section-title span:first-child{
+  font-size:13px;
+  font-weight:700;
+}
+
+.section-title span:last-child{
+  color:#555;
+  font-size:11px;
 }
 
 .row{
   display:flex;
   align-items:center;
-  gap:14px;
-  margin:12px 0;
-  padding:13px;
-  background:var(--panel);
-  border:1px solid #ffffff0d;
-  border-radius:13px;
+  justify-content:space-between;
+  min-height:68px;
+  border-bottom:1px solid var(--line);
 }
 
-label{
-  flex:1;
+.row-info{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.row-name{
+  font-size:14px;
   font-weight:700;
 }
 
-small{
-  display:block;
-  color:var(--muted);
-  margin-top:5px;
-  font-weight:400;
-  font-size:12px;
+.row-desc{
+  color:#666;
+  font-size:11px;
 }
 
 input{
-  width:118px;
-  padding:12px 10px;
-  border-radius:10px;
-  border:1px solid #facc1530;
+  width:105px;
+  padding:11px;
+  border:1px solid #ffffff14;
+  border-radius:8px;
+  background:#080808;
+  color:white;
   outline:none;
-  background:#070707;
-  color:#fff;
-  font-size:18px;
   text-align:center;
+  font-size:17px;
   font-weight:700;
 }
 
 input:focus{
-  border-color:var(--yellow);
-  box-shadow:0 0 0 3px #facc1510;
+  border-color:var(--gold);
 }
 
-.total{
-  text-align:center;
-  background:linear-gradient(180deg,#121212,#0b0b0b);
-  border:1px solid #facc1555;
-  border-radius:16px;
-  padding:20px;
-  margin-top:20px;
-}
-
-.total span{
-  display:block;
-  color:var(--yellow);
-  font-weight:800;
-}
-
-.total b{
-  display:block;
-  color:#fff;
-  font-size:52px;
-  margin-top:9px;
-}
+/* التفاصيل */
 
 .details{
-  margin-top:13px;
-  padding:12px 14px;
-  border-radius:11px;
-  background:#090909;
-  border:1px solid #ffffff08;
-  line-height:1.9;
-  color:#bdbdbd;
-  font-size:13px;
+  margin-top:22px;
+  padding:15px 0;
+  color:#777;
+  font-size:12px;
+  line-height:2;
+  border-top:1px solid var(--line);
 }
+
+/* الزر */
 
 .reset{
   width:100%;
-  padding:13px;
-  margin-top:14px;
-  border:0;
-  border-radius:10px;
-  background:var(--yellow);
+  margin-top:12px;
+  padding:14px;
+  border:1px solid var(--gold);
+  border-radius:8px;
+  background:var(--gold);
   color:#050505;
-  font-size:16px;
+  font-size:14px;
   font-weight:900;
   cursor:pointer;
 }
 
-@media(max-width:520px){
+.reset:hover{
+  filter:brightness(1.08);
+}
+
+/* الجوال */
+
+@media(max-width:480px){
+
   body{
-    padding:12px;
-    align-items:flex-start;
-    padding-top:20px;
+    padding:18px 14px;
   }
 
-  .card{
-    padding:18px;
+  .hero{
+    padding:34px 0 26px;
+  }
+
+  h1{
+    font-size:27px;
+  }
+
+  .total-number{
+    font-size:62px;
   }
 
   input{
-    width:100px;
+    width:90px;
   }
+
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
+<div class="wrapper">
 
-<div class="top">
+  <header class="header">
 
-<div class="menu">
+    <div class="brand">
+      <div class="brand-mark">D7</div>
+      <div class="brand-text">ADMINISTRATION</div>
+    </div>
 
-<button onclick="toggleMenu()" aria-label="القائمة">⋮</button>
+    <div class="menu">
 
-<div class="menu-content" id="menuContent">
+      <button
+        class="menu-button"
+        onclick="toggleMenu()"
+        aria-label="القائمة"
+      >
+        ⋮
+      </button>
 
-<a href="./management.html">
-📊 نقاط الإدارة
-</a>
+      <div
+        class="menu-content"
+        id="menuContent"
+      >
+
+        <a href="./management.html">
+          نقاط الإدارة
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <section class="hero">
+
+    <div class="eyebrow">
+      WEEKLY SCORE
+    </div>
+
+    <h1>حاسبة النقاط</h1>
+
+    <p class="subtitle">
+      احسب نقاط الإدارة الأسبوعية بسهولة
+    </p>
+
+  </section>
+
+
+  <section class="total">
+
+    <div class="total-label">
+      مجموع النقاط
+    </div>
+
+    <div
+      class="total-number"
+      id="total"
+    >
+      0
+    </div>
+
+  </section>
+
+
+  <div class="section-title">
+    <span>تفاصيل النقاط</span>
+    <span>D7 SYSTEM</span>
+  </div>
+
+
+  <div class="row">
+
+    <div class="row-info">
+      <div class="row-name">التكتات</div>
+      <div class="row-desc">4 تكتات = 1 نقطة</div>
+    </div>
+
+    <input
+      id="tickets"
+      type="number"
+      min="0"
+    >
+
+  </div>
+
+
+  <div class="row">
+
+    <div class="row-info">
+      <div class="row-name">التحذيرات</div>
+      <div class="row-desc">3 تحذيرات = 1 نقطة</div>
+    </div>
+
+    <input
+      id="warnings"
+      type="number"
+      min="0"
+    >
+
+  </div>
+
+
+  <div class="row">
+
+    <div class="row-info">
+      <div class="row-name">السجن</div>
+      <div class="row-desc">4 سجن = 1 نقطة</div>
+    </div>
+
+    <input
+      id="jail"
+      type="number"
+      min="0"
+    >
+
+  </div>
+
+
+  <div class="row">
+
+    <div class="row-info">
+      <div class="row-name">XP</div>
+      <div class="row-desc">1750 XP = 1 نقطة</div>
+    </div>
+
+    <input
+      id="xp"
+      type="number"
+      min="0"
+    >
+
+  </div>
+
+
+  <div class="row">
+
+    <div class="row-info">
+      <div class="row-name">تكتات النصب</div>
+      <div class="row-desc">2 تكتات = 1 نقطة</div>
+    </div>
+
+    <input
+      id="scam"
+      type="number"
+      min="0"
+    >
+
+  </div>
+
+
+  <div class="row">
+
+    <div class="row-info">
+      <div class="row-name">الفعاليات</div>
+      <div class="row-desc">كل فعالية = 10 نقاط</div>
+    </div>
+
+    <input
+      id="events"
+      type="number"
+      min="0"
+    >
+
+  </div>
+
+
+  <div
+    class="details"
+    id="details"
+  ></div>
+
+
+  <button
+    class="reset"
+    onclick="resetAll()"
+  >
+    تصفير الحاسبة
+  </button>
 
 </div>
 
-</div>
-
-<div class="logo">D7</div>
-
-<h1>حاسبة النقاط</h1>
-
-<p class="sub">حاسبة نقاط الإدارة الأسبوعية</p>
-
-</div>
-
-<div class="row">
-<label>
-التكتات
-<small>4 تكتات = 1 نقطة</small>
-</label>
-<input id="tickets" type="number" min="0">
-</div>
-
-<div class="row">
-<label>
-التحذيرات
-<small>3 تحذيرات = 1 نقطة</small>
-</label>
-<input id="warnings" type="number" min="0">
-</div>
-
-<div class="row">
-<label>
-السجن
-<small>4 سجن = 1 نقطة</small>
-</label>
-<input id="jail" type="number" min="0">
-</div>
-
-<div class="row">
-<label>
-XP
-<small>1750 اكسبي = 1 نقطة</small>
-</label>
-<input id="xp" type="number" min="0">
-</div>
-
-<div class="row">
-<label>
-تكتات النصب
-<small>2 تكتات = 1 نقطة</small>
-</label>
-<input id="scam" type="number" min="0">
-</div>
-
-<div class="row">
-<label>
-الفعاليات
-<small>كل فعالية = 10 نقاط</small>
-</label>
-<input id="events" type="number" min="0">
-</div>
-
-<div class="total">
-<span>مجموع النقاط</span>
-<b id="total">0</b>
-</div>
-
-<div class="details" id="details"></div>
-
-<button class="reset" onclick="resetAll()">
-تصفير
-</button>
-
-</div>
 
 <script>
 
 function toggleMenu(){
 
-  const menu = document.getElementById("menuContent");
+  const menu =
+    document.getElementById("menuContent");
 
   menu.style.display =
     menu.style.display === "block"
@@ -321,10 +478,14 @@ function toggleMenu(){
     : "block";
 }
 
+
 document.addEventListener("click",function(event){
 
-  const menu = document.querySelector(".menu");
-  const content = document.getElementById("menuContent");
+  const menu =
+    document.querySelector(".menu");
+
+  const content =
+    document.getElementById("menuContent");
 
   if(!menu.contains(event.target)){
     content.style.display = "none";
@@ -332,46 +493,81 @@ document.addEventListener("click",function(event){
 
 });
 
+
 function calc(){
 
   const n = id =>
     Math.max(
       0,
-      Number(document.getElementById(id).value) || 0
+      Number(
+        document.getElementById(id).value
+      ) || 0
     );
 
-  const t = Math.floor(n("tickets") / 4);
-  const w = Math.floor(n("warnings") / 3);
-  const j = Math.floor(n("jail") / 4);
-  const x = Math.floor(n("xp") / 1750);
-  const s = Math.floor(n("scam") / 2);
-  const e = n("events") * 10;
 
-  const total = t + w + j + x + s + e;
+  const t =
+    Math.floor(n("tickets") / 4);
 
-  document.getElementById("total").textContent = total;
+  const w =
+    Math.floor(n("warnings") / 3);
 
-  document.getElementById("details").innerHTML =
-    "التكتات: " + t + " نقطة<br>" +
-    "التحذيرات: " + w + " نقطة<br>" +
-    "السجن: " + j + " نقطة<br>" +
-    "XP: " + x + " نقطة<br>" +
-    "تكتات النصب: " + s + " نقطة<br>" +
-    "الفعاليات: " + e + " نقطة";
+  const j =
+    Math.floor(n("jail") / 4);
+
+  const x =
+    Math.floor(n("xp") / 1750);
+
+  const s =
+    Math.floor(n("scam") / 2);
+
+  const e =
+    n("events") * 10;
+
+
+  const total =
+    t + w + j + x + s + e;
+
+
+  document
+    .getElementById("total")
+    .textContent = total;
+
+
+  document
+    .getElementById("details")
+    .innerHTML =
+      "التكتات: " + t + " نقطة<br>" +
+      "التحذيرات: " + w + " نقطة<br>" +
+      "السجن: " + j + " نقطة<br>" +
+      "XP: " + x + " نقطة<br>" +
+      "تكتات النصب: " + s + " نقطة<br>" +
+      "الفعاليات: " + e + " نقطة";
 }
 
-document.querySelectorAll("input").forEach(input => {
-  input.addEventListener("input",calc);
-});
+
+document
+  .querySelectorAll("input")
+  .forEach(input => {
+
+    input.addEventListener(
+      "input",
+      calc
+    );
+
+  });
+
 
 function resetAll(){
 
-  document.querySelectorAll("input").forEach(input => {
-    input.value = "";
-  });
+  document
+    .querySelectorAll("input")
+    .forEach(input => {
+      input.value = "";
+    });
 
   calc();
 }
+
 
 calc();
 
