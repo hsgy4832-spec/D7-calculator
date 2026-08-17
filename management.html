@@ -15,12 +15,15 @@
   --text:#f5f5f5;
 }
 
-*{
-  box-sizing:border-box;
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
 }
 
 body{
-  margin:0;
   min-height:100vh;
   padding:16px;
   font-family:Arial,system-ui,sans-serif;
@@ -244,12 +247,10 @@ let members =
 JSON.parse(localStorage.getItem("d7_members")) || [];
 
 function save(){
-
   localStorage.setItem(
     "d7_members",
     JSON.stringify(members)
   );
-
 }
 
 function render(){
@@ -265,9 +266,7 @@ function render(){
     return;
   }
 
-  members.sort(
-    (a,b)=>b.points-a.points
-  );
+  members.sort((a,b)=>b.points-a.points);
 
   list.innerHTML =
     members.map((m,i)=>`
@@ -304,7 +303,6 @@ function render(){
       </div>
 
     `).join("");
-
 }
 
 function addMember(){
@@ -319,9 +317,7 @@ function addMember(){
     ) || 0;
 
   if(!name){
-
     alert("اكتب اسم الإداري");
-
     return;
   }
 
@@ -347,9 +343,7 @@ function addPoints(index){
   const value = Number(amount);
 
   if(!Number.isFinite(value) || value < 0){
-
     alert("أدخل رقم صحيح");
-
     return;
   }
 
@@ -368,13 +362,14 @@ function removeMember(index){
     save();
     render();
   }
-
 }
 
 function goHome(){
 
-  window.location.href =
-    "https://hsgy4832-spec.github.io/D7-calculator/";
+  window.top.location.replace(
+    "https://hsgy4832-spec.github.io/D7-calculator/index.html"
+  );
+
 }
 
 render();
@@ -382,4 +377,4 @@ render();
 </script>
 
 </body>
-  </html>
+</html>
