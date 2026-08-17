@@ -3,18 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>D7 — نقاط الإدارة</title>
+<title>سجل نقاط الإدارة - D7</title>
 
 <style>
 :root{
-  --gold:#FACC15;
-  --gold-soft:#FACC1530;
-  --black:#050505;
-  --surface:#0b0b0b;
-  --line:#ffffff12;
-  --muted:#777;
-  --white:#f4f4f4;
-  --red:#ef4444;
+  --yellow:#FACC15;
+  --bg:#101010;
+  --panel:#181818;
+  --border:#FACC1545;
+  --muted:#999;
+  --text:#f5f5f5;
 }
 
 *{
@@ -24,184 +22,111 @@
 body{
   margin:0;
   min-height:100vh;
-  padding:25px 16px;
-  background:var(--black);
-  color:var(--white);
+  padding:16px;
   font-family:Arial,system-ui,sans-serif;
+  background:
+    radial-gradient(circle at 50% 0%,#facc1512,transparent 35%),
+    var(--bg);
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
 }
 
-.wrapper{
+.card{
   width:100%;
-  max-width:620px;
-  margin:auto;
+  max-width:560px;
+  background:linear-gradient(180deg,#1b1b1b,#141414);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 18px 55px #0008;
 }
 
-/* Header */
-
-.header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding-bottom:22px;
-  border-bottom:1px solid var(--line);
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.brand-mark{
-  color:var(--gold);
-  font-size:28px;
+.logo{
+  text-align:center;
+  color:var(--yellow);
+  font-size:42px;
   font-weight:900;
-  letter-spacing:3px;
-}
-
-.brand-text{
-  color:#777;
-  font-size:11px;
-  letter-spacing:2px;
-}
-
-.back{
-  color:#777;
-  text-decoration:none;
-  font-size:13px;
-  transition:.2s;
-}
-
-.back:hover{
-  color:var(--gold);
-}
-
-/* Hero */
-
-.hero{
-  padding:42px 0 30px;
-}
-
-.eyebrow{
-  color:var(--gold);
-  font-size:11px;
-  letter-spacing:3px;
-  margin-bottom:10px;
+  letter-spacing:4px;
 }
 
 h1{
-  margin:0;
-  font-size:32px;
+  text-align:center;
+  margin:8px 0;
+  font-size:23px;
 }
 
-.subtitle{
-  margin:10px 0 0;
+.sub{
+  text-align:center;
   color:var(--muted);
   font-size:13px;
+  margin-bottom:22px;
 }
 
-/* Add */
-
-.add-section{
-  padding:22px 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-}
-
-.add-title{
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:14px;
-}
+/* خانة الإضافة */
 
 .add{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 110px 75px;
+  grid-template-columns:1fr 110px 75px;
   gap:8px;
+  width:100%;
+  margin-bottom:20px;
 }
 
 input{
   width:100%;
   min-width:0;
-  padding:12px;
-  border:1px solid #ffffff14;
-  border-radius:8px;
-  background:#080808;
+  padding:12px 8px;
+  border-radius:10px;
+  border:1px solid #facc1540;
+  background:#101010;
   color:white;
   outline:none;
+  font-size:15px;
   text-align:center;
-  font-size:14px;
 }
 
 input:focus{
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px #facc1508;
+  border-color:var(--yellow);
+  box-shadow:0 0 0 3px #facc1512;
 }
 
 .add button{
+  width:100%;
+  padding:12px 5px;
   border:0;
-  border-radius:8px;
-  background:var(--gold);
-  color:#050505;
+  border-radius:10px;
+  background:var(--yellow);
+  color:#101010;
   font-weight:900;
   cursor:pointer;
 }
 
-.add button:hover{
-  filter:brightness(1.08);
-}
-
-/* List */
-
-.list-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:28px 0 8px;
-}
-
-.list-title span:first-child{
-  font-size:13px;
-  font-weight:700;
-}
-
-.list-title span:last-child{
-  color:#555;
-  font-size:11px;
-}
+/* الإداري */
 
 .member{
+  width:100%;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
-  min-height:78px;
-  border-bottom:1px solid var(--line);
-}
-
-.member-info{
-  min-width:0;
-}
-
-.rank{
-  color:#555;
-  font-size:11px;
-  margin-bottom:5px;
+  gap:10px;
+  padding:14px;
+  margin:10px 0;
+  background:var(--panel);
+  border:1px solid #ffffff12;
+  border-radius:13px;
 }
 
 .name{
-  font-size:16px;
   font-weight:800;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  font-size:16px;
 }
 
 .points{
-  margin-top:5px;
-  color:var(--gold);
-  font-size:12px;
-  font-weight:800;
+  color:var(--yellow);
+  font-weight:900;
+  margin-top:4px;
 }
 
 .actions{
@@ -211,178 +136,118 @@ input:focus{
 }
 
 .actions button{
-  border:1px solid #ffffff14;
-  border-radius:7px;
+  border:0;
+  border-radius:8px;
   padding:8px 10px;
-  background:#0a0a0a;
-  color:var(--gold);
-  font-size:12px;
-  font-weight:800;
+  background:var(--yellow);
+  color:#101010;
+  font-weight:900;
   cursor:pointer;
 }
 
-.actions button:hover{
-  border-color:var(--gold);
-}
-
 .actions .delete{
-  color:#ef4444;
-}
-
-.actions .delete:hover{
-  border-color:#ef4444;
+  background:#d93636;
+  color:white;
 }
 
 .empty{
-  padding:35px 0;
   text-align:center;
-  color:#555;
-  font-size:13px;
+  color:var(--muted);
+  padding:25px;
 }
 
-/* Footer */
+/* العودة للحاسبة */
 
-.footer{
-  margin-top:30px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
+.back{
+  display:block;
+  width:100%;
+  margin-top:18px;
+  padding:12px;
   text-align:center;
-  color:#444;
-  font-size:10px;
-  letter-spacing:2px;
+  text-decoration:none;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--yellow);
+  background:#181818;
+  font-weight:900;
 }
 
-/* Mobile */
+.back:hover{
+  background:#222;
+}
 
-@media(max-width:500px){
+@media(max-width:430px){
 
-  body{
-    padding:18px 14px;
-  }
-
-  .hero{
-    padding:34px 0 26px;
-  }
-
-  h1{
-    font-size:27px;
+  .card{
+    padding:16px;
   }
 
   .add{
-    grid-template-columns:1fr 85px 65px;
+    grid-template-columns:1fr 90px 65px;
+    gap:6px;
+  }
+
+  input{
+    font-size:14px;
   }
 
   .add button{
-    font-size:12px;
+    font-size:13px;
   }
 
   .member{
-    min-height:74px;
+    padding:12px;
   }
 
   .actions button{
-    padding:8px;
-    font-size:11px;
+    padding:7px 8px;
+    font-size:12px;
   }
-
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrapper">
+<div class="card">
 
-  <header class="header">
+<div class="logo">D7</div>
 
-    <div class="brand">
-      <div class="brand-mark">D7</div>
-      <div class="brand-text">ADMINISTRATION</div>
-    </div>
+<h1>سجل نقاط الإدارة</h1>
 
-    <a
-      href="./index.html"
-      class="back"
-    >
-      ← الحاسبة
-    </a>
+<p class="sub">إدارة نقاط الإداريين</p>
 
-  </header>
+<div class="add">
 
+<input
+  id="name"
+  type="text"
+  placeholder="اسم الإداري"
+>
 
-  <section class="hero">
+<input
+  id="points"
+  type="number"
+  min="0"
+  placeholder="النقاط"
+>
 
-    <div class="eyebrow">
-      MANAGEMENT
-    </div>
-
-    <h1>نقاط الإدارة</h1>
-
-    <p class="subtitle">
-      إدارة وترتيب نقاط الإداريين
-    </p>
-
-  </section>
-
-
-  <section class="add-section">
-
-    <div class="add-title">
-      إضافة إداري
-    </div>
-
-    <div class="add">
-
-      <input
-        id="name"
-        type="text"
-        placeholder="اسم الإداري"
-      >
-
-      <input
-        id="points"
-        type="number"
-        min="0"
-        placeholder="النقاط"
-      >
-
-      <button onclick="addMember()">
-        إضافة
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <div class="list-title">
-
-    <span>ترتيب الإداريين</span>
-
-    <span id="count">
-      0 إداري
-    </span>
-
-  </div>
-
-
-  <div id="list"></div>
-
-
-  <div class="footer">
-    D7 ADMIN SYSTEM
-  </div>
+<button onclick="addMember()">إضافة</button>
 
 </div>
 
+<div id="list"></div>
+
+<a href="index.html" class="back">
+← العودة للحاسبة
+</a>
+
+</div>
 
 <script>
 
 let members =
-  JSON.parse(
-    localStorage.getItem("d7_members")
-  ) || [];
-
+JSON.parse(localStorage.getItem("d7_members")) || [];
 
 function save(){
 
@@ -393,19 +258,10 @@ function save(){
 
 }
 
-
 function render(){
 
   const list =
     document.getElementById("list");
-
-  const count =
-    document.getElementById("count");
-
-
-  count.textContent =
-    members.length + " إداري";
-
 
   if(members.length === 0){
 
@@ -415,25 +271,19 @@ function render(){
     return;
   }
 
-
   members.sort(
-    (a,b) => b.points - a.points
+    (a,b)=>b.points-a.points
   );
 
-
   list.innerHTML =
-    members.map((m,i) => `
+    members.map((m,i)=>`
 
       <div class="member">
 
-        <div class="member-info">
-
-          <div class="rank">
-            #${i + 1}
-          </div>
+        <div>
 
           <div class="name">
-            ${escapeHTML(m.name)}
+            ${i+1}. ${m.name}
           </div>
 
           <div class="points">
@@ -442,12 +292,9 @@ function render(){
 
         </div>
 
-
         <div class="actions">
 
-          <button
-            onclick="addPoints(${i})"
-          >
+          <button onclick="addPoints(${i})">
             + نقاط
           </button>
 
@@ -466,23 +313,16 @@ function render(){
 
 }
 
-
 function addMember(){
 
   const name =
-    document
-      .getElementById("name")
-      .value
-      .trim();
-
+    document.getElementById("name")
+    .value.trim();
 
   const points =
     Number(
-      document
-        .getElementById("points")
-        .value
+      document.getElementById("points").value
     ) || 0;
-
 
   if(!name){
 
@@ -491,89 +331,51 @@ function addMember(){
     return;
   }
 
-
   members.push({
     name:name,
     points:points
   });
 
-
   save();
   render();
 
-
-  document.getElementById("name").value = "";
-  document.getElementById("points").value = "";
-
+  document.getElementById("name").value="";
+  document.getElementById("points").value="";
 }
-
 
 function addPoints(index){
 
   const amount =
-    prompt(
-      "كم نقطة تريد إضافتها؟"
-    );
+    prompt("كم نقطة تريد إضافتها؟");
 
+  if(amount === null) return;
 
-  if(amount === null){
-    return;
-  }
+  const value = Number(amount);
 
-
-  const value =
-    Number(amount);
-
-
-  if(
-    !Number.isFinite(value) ||
-    value < 0
-  ){
+  if(!Number.isFinite(value) || value < 0){
 
     alert("أدخل رقم صحيح");
 
     return;
   }
 
-
   members[index].points += value;
-
 
   save();
   render();
-
 }
-
 
 function removeMember(index){
 
-  if(
-    confirm(
-      "هل تريد حذف هذا الإداري؟"
-    )
-  ){
+  if(confirm("هل تريد حذف هذا الإداري؟")){
 
     members.splice(index,1);
 
     save();
     render();
-
   }
 
 }
-
-
-function escapeHTML(text){
-
-  const div =
-    document.createElement("div");
-
-  div.textContent = text;
-
-  return div.innerHTML;
-
-}
-
 
 render();
 
