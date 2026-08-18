@@ -409,29 +409,19 @@ function calc(){
 
 
   const t =
-    Math.floor(
-      n("tickets") / 4
-    );
+    n("tickets") / 4;
 
   const w =
-    Math.floor(
-      n("warnings") / 3
-    );
+    n("warnings") / 3;
 
   const j =
-    Math.floor(
-      n("jail") / 4
-    );
+    n("jail") / 4;
 
   const x =
-    Math.floor(
-      n("xp") / 1750
-    );
+    n("xp") / 1750;
 
   const s =
-    Math.floor(
-      n("scam") / 2
-    );
+    n("scam") / 2;
 
   const e =
     n("events") * 10;
@@ -443,18 +433,18 @@ function calc(){
 
   document
     .getElementById("total")
-    .textContent = total;
+    .textContent = Number(total.toFixed(1));
 
 
   document
     .getElementById("details")
     .innerHTML =
-      "التكتات: " + t + " نقطة<br>" +
-      "التحذيرات: " + w + " نقطة<br>" +
-      "السجن: " + j + " نقطة<br>" +
-      "XP: " + x + " نقطة<br>" +
-      "تكتات النصب: " + s + " نقطة<br>" +
-      "الفعاليات: " + e + " نقطة";
+      "التكتات: " + Number(t.toFixed(1)) + " نقطة<br>" +
+      "التحذيرات: " + Number(w.toFixed(1)) + " نقطة<br>" +
+      "السجن: " + Number(j.toFixed(1)) + " نقطة<br>" +
+      "XP: " + Number(x.toFixed(1)) + " نقطة<br>" +
+      "تكتات النصب: " + Number(s.toFixed(1)) + " نقطة<br>" +
+      "الفعاليات: " + Number(e.toFixed(1)) + " نقطة";
 }
 
 
