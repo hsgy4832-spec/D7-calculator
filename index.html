@@ -1,3 +1,5 @@
+index.html
+
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
@@ -15,9 +17,7 @@
   --text:#f5f5f5;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
   font-family:Arial,system-ui,sans-serif;
@@ -43,9 +43,7 @@ body{
   box-shadow:0 18px 55px #0008;
 }
 
-.top{
-  position:relative;
-}
+.top{position:relative;}
 
 .menu{
   position:absolute;
@@ -209,20 +207,15 @@ input:focus{
 }
 
 @media(max-width:520px){
-
   body{
     padding:12px;
     align-items:flex-start;
     padding-top:20px;
   }
 
-  .card{
-    padding:18px;
-  }
+  .card{padding:18px;}
 
-  input{
-    width:100px;
-  }
+  input{width:100px;}
 }
 </style>
 </head>
@@ -235,17 +228,9 @@ input:focus{
 
 <div class="menu">
 
-<button
-  onclick="toggleMenu()"
-  aria-label="القائمة"
->
-⋮
-</button>
+<button onclick="toggleMenu()" aria-label="القائمة">⋮</button>
 
-<div
-  class="menu-content"
-  id="menuContent"
->
+<div class="menu-content" id="menuContent">
 
 <a href="./management.html">
 📊 نقاط الإدارة
@@ -270,11 +255,7 @@ input:focus{
 التكتات
 <small>4 تكتات = 1 نقطة</small>
 </label>
-<input
-  id="tickets"
-  type="number"
-  min="0"
->
+<input id="tickets" type="number" min="0">
 </div>
 
 <div class="row">
@@ -282,11 +263,7 @@ input:focus{
 التحذيرات
 <small>3 تحذيرات = 1 نقطة</small>
 </label>
-<input
-  id="warnings"
-  type="number"
-  min="0"
->
+<input id="warnings" type="number" min="0">
 </div>
 
 <div class="row">
@@ -294,11 +271,7 @@ input:focus{
 السجن
 <small>4 سجن = 1 نقطة</small>
 </label>
-<input
-  id="jail"
-  type="number"
-  min="0"
->
+<input id="jail" type="number" min="0">
 </div>
 
 <div class="row">
@@ -306,11 +279,7 @@ input:focus{
 XP
 <small>1750 اكسبي = 1 نقطة</small>
 </label>
-<input
-  id="xp"
-  type="number"
-  min="0"
->
+<input id="xp" type="number" min="0">
 </div>
 
 <div class="row">
@@ -318,11 +287,7 @@ XP
 تكتات النصب
 <small>2 تكتات = 1 نقطة</small>
 </label>
-<input
-  id="scam"
-  type="number"
-  min="0"
->
+<input id="scam" type="number" min="0">
 </div>
 
 <div class="row">
@@ -330,40 +295,64 @@ XP
 الفعاليات
 <small>كل فعالية = 10 نقاط</small>
 </label>
-<input
-  id="events"
-  type="number"
-  min="0"
->
+<input id="events" type="number" min="0">
 </div>
 
 <div class="total">
-
-<span>
-مجموع النقاط
-</span>
-
-<b id="total">
-0
-</b>
-
+<span>مجموع النقاط</span>
+<b id="total">0</b>
 </div>
 
-<div
-  class="details"
-  id="details"
-></div>
+<div class="details" id="details"></div>
 
-<button
-  class="reset"
-  onclick="resetAll()"
->
+<button class="reset" onclick="resetAll()">
 تصفير
 </button>
 
 </div>
 
 <script>
+
+const SUPABASE_URL = "https://wcctqerfhpqzuizieyrb.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_XmCwSwG98FoaPrwtjp9TDQ_WyAc3uCb";
+
+
+async function recordVisit(){
+
+  try{
+
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/visits",
+      {
+        method:"POST",
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":"Bearer " + SUPABASE_KEY,
+          "Content-Type":"application/json",
+          "Prefer":"return=minimal"
+        },
+        body:JSON.stringify({})
+      }
+    );
+
+    if(!response.ok){
+      console.log(
+        "Visit error:",
+        await response.text()
+      );
+    }
+
+  }catch(error){
+
+    console.log("Visit error:",error);
+
+  }
+
+}
+
+recordVisit();
+
 
 function toggleMenu(){
 
@@ -407,34 +396,20 @@ function calc(){
       ) || 0
     );
 
-
-  const t =
-    n("tickets") / 4;
-
-  const w =
-    n("warnings") / 3;
-
-  const j =
-    n("jail") / 4;
-
-  const x =
-    n("xp") / 1750;
-
-  const s =
-    n("scam") / 2;
-
-  const e =
-    n("events") * 10;
-
+  const t = n("tickets") / 4;
+  const w = n("warnings") / 3;
+  const j = n("jail") / 4;
+  const x = n("xp") / 1750;
+  const s = n("scam") / 2;
+  const e = n("events") * 10;
 
   const total =
     t + w + j + x + s + e;
 
-
   document
     .getElementById("total")
-    .textContent = Number(total.toFixed(1));
-
+    .textContent =
+      Number(total.toFixed(1));
 
   document
     .getElementById("details")
