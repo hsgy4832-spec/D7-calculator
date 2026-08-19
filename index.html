@@ -66,7 +66,7 @@ body{
   position:absolute;
   left:0;
   top:48px;
-  width:180px;
+  width:190px;
   background:#181818;
   border:1px solid var(--border);
   border-radius:12px;
@@ -226,12 +226,18 @@ input:focus{
 
 <div class="menu">
 
-<button onclick="toggleMenu()" aria-label="القائمة">⋮</button>
+<button onclick="toggleMenu()" aria-label="القائمة">
+⋮
+</button>
 
 <div class="menu-content" id="menuContent">
 
 <a href="./management.html">
 📊 نقاط الإدارة
+</a>
+
+<a href="./visits.html">
+👁️ سجل الزيارات
 </a>
 
 </div>
@@ -297,13 +303,26 @@ XP
 </div>
 
 <div class="total">
-<span>مجموع النقاط</span>
-<b id="total">0</b>
+
+<span>
+مجموع النقاط
+</span>
+
+<b id="total">
+0
+</b>
+
 </div>
 
-<div class="details" id="details"></div>
+<div
+  class="details"
+  id="details"
+></div>
 
-<button class="reset" onclick="resetAll()">
+<button
+  class="reset"
+  onclick="resetAll()"
+>
 تصفير
 </button>
 
@@ -311,9 +330,11 @@ XP
 
 <script>
 
-const SUPABASE_URL = "https://wcctqerfhpqzuizieyrb.supabase.co";
+const SUPABASE_URL =
+"https://wcctqerfhpqzuizieyrb.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_XmCwSwG98FoaPrwtjp9TDQ_WyAc3uCb";
+const SUPABASE_KEY =
+"sb_publishable_XmCwSwG98FoaPrwtjp9TDQ_WyAc3uCb";
 
 
 async function recordVisit(){
@@ -324,26 +345,33 @@ async function recordVisit(){
       SUPABASE_URL + "/rest/v1/visits",
       {
         method:"POST",
+
         headers:{
           "apikey":SUPABASE_KEY,
           "Authorization":"Bearer " + SUPABASE_KEY,
           "Content-Type":"application/json",
           "Prefer":"return=minimal"
         },
+
         body:JSON.stringify({})
       }
     );
 
     if(!response.ok){
+
       console.log(
         "Visit error:",
         await response.text()
       );
+
     }
 
   }catch(error){
 
-    console.log("Visit error:",error);
+    console.log(
+      "Visit error:",
+      error
+    );
 
   }
 
@@ -375,7 +403,9 @@ document.addEventListener(
       document.getElementById("menuContent");
 
     if(!menu.contains(event.target)){
+
       content.style.display = "none";
+
     }
 
   }
@@ -394,30 +424,62 @@ function calc(){
       ) || 0
     );
 
-  const t = n("tickets") / 4;
-  const w = n("warnings") / 3;
-  const j = n("jail") / 4;
-  const x = n("xp") / 1750;
-  const s = n("scam") / 2;
-  const e = n("events") * 10;
+
+  const t =
+    n("tickets") / 4;
+
+  const w =
+    n("warnings") / 3;
+
+  const j =
+    n("jail") / 4;
+
+  const x =
+    n("xp") / 1750;
+
+  const s =
+    n("scam") / 2;
+
+  const e =
+    n("events") * 10;
+
 
   const total =
     t + w + j + x + s + e;
+
 
   document
     .getElementById("total")
     .textContent =
       Number(total.toFixed(1));
 
+
   document
     .getElementById("details")
     .innerHTML =
-      "التكتات: " + Number(t.toFixed(1)) + " نقطة<br>" +
-      "التحذيرات: " + Number(w.toFixed(1)) + " نقطة<br>" +
-      "السجن: " + Number(j.toFixed(1)) + " نقطة<br>" +
-      "XP: " + Number(x.toFixed(1)) + " نقطة<br>" +
-      "تكتات النصب: " + Number(s.toFixed(1)) + " نقطة<br>" +
-      "الفعاليات: " + Number(e.toFixed(1)) + " نقطة";
+      "التكتات: " +
+      Number(t.toFixed(1)) +
+      " نقطة<br>" +
+
+      "التحذيرات: " +
+      Number(w.toFixed(1)) +
+      " نقطة<br>" +
+
+      "السجن: " +
+      Number(j.toFixed(1)) +
+      " نقطة<br>" +
+
+      "XP: " +
+      Number(x.toFixed(1)) +
+      " نقطة<br>" +
+
+      "تكتات النصب: " +
+      Number(s.toFixed(1)) +
+      " نقطة<br>" +
+
+      "الفعاليات: " +
+      Number(e.toFixed(1)) +
+      " نقطة";
 }
 
 
@@ -438,10 +500,13 @@ function resetAll(){
   document
     .querySelectorAll("input")
     .forEach(input => {
+
       input.value = "";
+
     });
 
   calc();
+
 }
 
 
@@ -450,4 +515,4 @@ calc();
 </script>
 
 </body>
-</html>
+  </html>
