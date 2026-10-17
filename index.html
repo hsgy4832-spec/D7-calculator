@@ -262,16 +262,6 @@ input:focus{
 <input id="xp" type="number" min="0">
 </div>
 
-<div class="row">
-<label>تكتات النصب<small>2 تكتات = 1 نقطة</small></label>
-<input id="scam" type="number" min="0">
-</div>
-
-<div class="row">
-<label>الفعاليات<small>كل فعالية = 10 نقاط</small></label>
-<input id="events" type="number" min="0">
-</div>
-
 <div class="total">
 <span>مجموع النقاط</span>
 <b id="total">0</b>
@@ -341,10 +331,8 @@ function calc(){
   const b = n("bans") / 2;
   const j = n("jail") / 2;
   const x = n("xp") / 500;
-  const s = n("scam") / 2;
-  const e = n("events") * 10;
 
-  const total = t + w + b + j + x + s + e;
+  const total = t + w + b + j + x;
 
   document.getElementById("total").textContent =
     Number(total.toFixed(1));
@@ -354,9 +342,7 @@ function calc(){
     "التحذيرات: " + Number(w.toFixed(1)) + " نقطة<br>" +
     "الباند: " + Number(b.toFixed(1)) + " نقطة<br>" +
     "السجن: " + Number(j.toFixed(1)) + " نقطة<br>" +
-    "XP: " + Number(x.toFixed(1)) + " نقطة<br>" +
-    "تكتات النصب: " + Number(s.toFixed(1)) + " نقطة<br>" +
-    "الفعاليات: " + Number(e.toFixed(1)) + " نقطة";
+    "XP: " + Number(x.toFixed(1)) + " نقطة";
 }
 
 document.querySelectorAll("input").forEach(input => {
