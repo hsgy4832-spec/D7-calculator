@@ -238,22 +238,27 @@ input:focus{
 </div>
 
 <div class="row">
-<label>التكتات<small>4 تكتات = 1 نقطة</small></label>
+<label>التكتات<small>2 تكت = 1 نقطة</small></label>
 <input id="tickets" type="number" min="0">
 </div>
 
 <div class="row">
-<label>التحذيرات<small>3 تحذيرات = 1 نقطة</small></label>
+<label>التحذيرات<small>2 تحذير = 1 نقطة</small></label>
 <input id="warnings" type="number" min="0">
 </div>
 
 <div class="row">
-<label>السجن<small>4 سجن = 1 نقطة</small></label>
+<label>الباند<small>2 باند = 1 نقطة</small></label>
+<input id="bans" type="number" min="0">
+</div>
+
+<div class="row">
+<label>السجن<small>2 سجن = 1 نقطة</small></label>
 <input id="jail" type="number" min="0">
 </div>
 
 <div class="row">
-<label>XP<small>1750 اكسبي = 1 نقطة</small></label>
+<label>XP<small>500 اكسبي = 1 نقطة</small></label>
 <input id="xp" type="number" min="0">
 </div>
 
@@ -331,14 +336,15 @@ function calc(){
     Number(document.getElementById(id).value) || 0
   );
 
-  const t = n("tickets") / 4;
-  const w = n("warnings") / 3;
-  const j = n("jail") / 4;
-  const x = n("xp") / 1750;
+  const t = n("tickets") / 2;
+  const w = n("warnings") / 2;
+  const b = n("bans") / 2;
+  const j = n("jail") / 2;
+  const x = n("xp") / 500;
   const s = n("scam") / 2;
   const e = n("events") * 10;
 
-  const total = t + w + j + x + s + e;
+  const total = t + w + b + j + x + s + e;
 
   document.getElementById("total").textContent =
     Number(total.toFixed(1));
@@ -346,6 +352,7 @@ function calc(){
   document.getElementById("details").innerHTML =
     "التكتات: " + Number(t.toFixed(1)) + " نقطة<br>" +
     "التحذيرات: " + Number(w.toFixed(1)) + " نقطة<br>" +
+    "الباند: " + Number(b.toFixed(1)) + " نقطة<br>" +
     "السجن: " + Number(j.toFixed(1)) + " نقطة<br>" +
     "XP: " + Number(x.toFixed(1)) + " نقطة<br>" +
     "تكتات النصب: " + Number(s.toFixed(1)) + " نقطة<br>" +
